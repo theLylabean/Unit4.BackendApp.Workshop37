@@ -1,3 +1,5 @@
+import gamesRouter from './api/games.js';
+import platformRouter from './api/platform.js';
 import express from "express";
 const app = express();
 export default app;
@@ -7,8 +9,8 @@ app.use(( req, res, next ) => {
     console.log(req.method, req.originalUrl);
     next();
 })
-app.use('/platformApi', platformApiRouter);
-app.use('/gameApi', gameApiRouter);
+app.use('/platform', platformRouter);
+app.use('/games', gamesRouter);
 app.route('/').get(async (req, res ) => {
     res.send('Welcome to Waterdeep!')
 })
