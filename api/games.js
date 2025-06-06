@@ -23,11 +23,11 @@ router.route('/').post(async( req, res ) => {
     if(!req.body){
         return res.status(400).send({error: 'Missing req.body'})
     }
-    const { title, genre, release_year } = req.body;
+    const { title, genre, release_year, platform_name } = req.body;
     if(!title || !genre || !release_year ){
         return res.status(400).status({ error: 'Missing one or more required fields.' })
     }
-    const game = await createGames({ title, genre, release_year })
+    const game = await createGames({ title, genre, release_year, platform_name })
     res.status(201).send(game);
 })
 

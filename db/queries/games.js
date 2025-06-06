@@ -1,9 +1,18 @@
 import db from "../client.js";
 
-export async function createGames(title, genre, release_year, platform_id){
+
+export async function createGames({ title, genre, release_year, platform_name }){
+    const result = await db.query(
+        'SELECT id FROM platforms WHERE name = $1',
+        [platform_name]
+    );
+    console.log(release_year)
+    console.log(platform_name)
+    console.log(result.rows[0])
+    const platform_id = result.rows[0].id;
     const sql = `
         INSERT INTO games (title, genre, release_year, platform_id)
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2, $3, $4)
         RETURNING *;
     `;
     const { rows: games } = await db.query(sql, [title, genre, release_year, platform_id]);
